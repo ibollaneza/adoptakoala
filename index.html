@@ -99,6 +99,8 @@
     </div>
 
     <script>
+        let generatedImages = {}; // Object to track generated images for each wallet
+
         // Simple and basic validation for Solana wallet address
         function verifyWallet() {
             const wallet = document.getElementById("wallet").value;
@@ -110,6 +112,10 @@
                 imageContainer.style.display = "flex";
                 imageContainer.style.flexDirection = "column";
                 imageContainer.style.alignItems = "center";
+                if (generatedImages[wallet]) {
+                    // If an image has already been generated for this wallet, show it
+                    showGeneratedImage(wallet);
+                }
             } else {
                 alert("Please enter a valid Solana wallet address.");
             }
@@ -117,6 +123,12 @@
 
         // Function to generate a random koala image
         function generateImage() {
+            const wallet = document.getElementById("wallet").value;
+            if (generatedImages[wallet]) {
+                alert("You have already generated an image.");
+                return;
+            }
+
             const koalaImages = [
                 'https://raw.githubusercontent.com/ibollaneza/adoptakoala/5830d945982af65d123b7aaeac951a781436ae94/image%20(1).jpg',
                 'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/image%20(2).jpg',
@@ -134,6 +146,16 @@
             const randomIndex = Math.floor(Math.random() * koalaImages.length);
             const koalaImage = document.getElementById("koala-image");
             koalaImage.src = koalaImages[randomIndex];
+            koalaImage.style.display = "block";
+
+            // Save the generated image for this wallet
+            generatedImages[wallet] = koalaImages[randomIndex];
+        }
+
+        // Function to show the generated image if it already exists for the wallet
+        function showGeneratedImage(wallet) {
+            const koalaImage = document.getElementById("koala-image");
+            koalaImage.src = generatedImages[wallet];
             koalaImage.style.display = "block";
         }
     </script>
