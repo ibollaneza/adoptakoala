@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt a Koala</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #22c55e; /* Verde */
+            color: #333; /* Gris */
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .subheading {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #555; /* Gris más claro */
+        }
+
+        #wallet-container, #image-container, #code-container {
+            width: 90%;
+            max-width: 600px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1em;
+            width: calc(100% - 22px);
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #333; /* Gris */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #555; /* Gris oscuro */
+        }
+
+        .full-height {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #generate-button {
+            margin-top: 20px;
+        }
+
+        #koala-image {
+            margin-top: 20px;
+            max-width: 100%;
+            border: 2px solid #333; /* Gris */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wallet-container" class="full-height">
+        <h1>Adopt a Koala</h1>
+        <h2>Enter Your Solana Wallet</h2>
+        <input type="text" id="wallet" placeholder="Enter your wallet address">
+        <button onclick="verifyWallet()">Submit</button>
+    </div>
+
+    <div id="image-container" class="full-height" style="display:none;">
+        <h1>Koala Gallery</h1>
+        <h2 class="subheading">¡This is your Koala!</h2>
+        <button id="generate-button" onclick="generateImage()">Generate</button>
+        <img id="koala-image" src="" alt="Koala Image" style="display:none;">
+    </div>
+
+    <script>
+        // Simple and basic validation for Solana wallet address
+        function verifyWallet() {
+            const wallet = document.getElementById("wallet").value;
+            const walletContainer = document.getElementById("wallet-container");
+            const imageContainer = document.getElementById("image-container");
+
+            if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
+                walletContainer.style.display = "none";
+                imageContainer.style.display = "flex";
+                imageContainer.style.flexDirection = "column";
+                imageContainer.style.alignItems = "center";
+            } else {
+                alert("Please enter a valid Solana wallet address.");
+            }
+        }
+
+        // Function to generate a random koala image
+        function generateImage() {
+            const koalaImages = [
+                'https://placekoala.com/300/200', // Replace with actual koala images URLs
+                'https://placekoala.com/300/201',
+                'https://placekoala.com/300/202',
+                'https://placekoala.com/300/203',
+                'https://placekoala.com/300/204'
+            ];
+            const randomIndex = Math.floor(Math.random() * koalaImages.length);
+            const koalaImage = document.getElementById("koala-image");
+            koalaImage.src = koalaImages[randomIndex];
+            koalaImage.style.display = "block";
+        }
+    </script>
+</body>
+</html>
