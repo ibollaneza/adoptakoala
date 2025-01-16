@@ -1,163 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adopt a Koala</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #22c55e; /* Verde */
-            color: #333; /* Gris */
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edge Computing and CDNs</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff;
+      color: #000;
+      font-family: "Consolas", "Courier New", monospace;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      color: #fff;
+      border-bottom: 2px solid #000;
+    }
+    .main-container {
+      display: flex;
+      flex: 1;
+      padding: 20px;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 300px;
+      padding: 15px;
+      background: #f0f0f0;
+      border: 1px solid #000;
+      border-radius: 8px;
+      overflow-y: auto;
+      margin-right: 20px;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 8px;
+    }
 
-        h1 {
-            font-size: 2em;
-            margin: 20px 0;
-        }
+    h1, h2, h3 {
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
 
-        h2 {
-            font-size: 1.5em;
-            margin: 10px 0;
-        }
+    .section-title {
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-        .subheading {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: #555; /* Gris más claro */
-        }
+    button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 4px;
+      transition: 0.2s;
+    }
+    button:hover {
+      background-color: #333;
+    }
 
-        #wallet-container, #image-container, #code-container {
-            width: 90%;
-            max-width: 600px;
-        }
+    select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: #e0e0e0;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 4px;
+      font-family: "Consolas", "Courier New", monospace;
+    }
 
-        input {
-            padding: 10px;
-            font-size: 1em;
-            width: calc(100% - 22px);
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .log-container {
+      background: #f5f5f5;
+      border: 1px solid #000;
+      border-radius: 4px;
+      padding: 15px;
+      overflow-y: auto;
+      height: 100%;
+      font-size: 0.9em;
+      white-space: pre-line;
+      font-family: "Consolas", "Courier New", monospace;
+    }
+    .log-entry {
+      margin-bottom: 10px;
+    }
 
-        button {
-            background-color: #333; /* Gris */
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #000;
+      color: #fff;
+      border-top: 2px solid #000;
+      font-size: 0.8em;
+      font-family: "Consolas", "Courier New", monospace;
+      margin-top: auto;
+    }
 
-        button:hover {
-            background-color: #555; /* Gris oscuro */
-        }
-
-        .full-height {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #generate-button {
-            margin-top: 20px;
-        }
-
-        #koala-image {
-            margin-top: 20px;
-            max-width: 100%;
-            border: 2px solid #333; /* Gris */
-            border-radius: 10px;
-        }
-    </style>
+    #connectWalletBtn {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 4px;
+      transition: 0.2s;
+      margin: 20px auto;
+      display: block;
+    }
+    #connectWalletBtn:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
 <body>
-    <div id="wallet-container" class="full-height">
-        <h1>Adopt a Koala</h1>
-        <h2>Enter Your Solana Wallet</h2>
-        <input type="text" id="wallet" placeholder="Enter your wallet address">
-        <button onclick="verifyWallet()">Submit</button>
+  <header>
+    <h1> Edge Computing and CDNs</h1>
+    <p style="margin:0;">Choose the Best Technologies for Your Web Project</p>
+  </header>
+
+  <div id="connectWalletContainer" style="text-align: center; margin-top: 20px;">
+    <button id="connectWalletBtn">Connect to Phantom Wallet</button>
+  </div>
+
+  <div class="main-container" style="display: none;" id="mainContent">
+    <!-- Sidebar (Stack Selection) -->
+    <div class="sidebar" id="stackSelection">
+      <h3>Frontend Stack</h3>
+      <div class="section-title">Framework</div>
+      <div>
+        <select id="frontendFramework">
+          <option value="react">React</option>
+          <option value="vue">Vue.js</option>
+          <option value="svelte">Svelte</option>
+        </select>
+      </div>
+
+      <div class="section-title">CSS Preprocessor</div>
+      <div>
+        <select id="cssPreprocessor">
+          <option value="sass">Sass</option>
+          <option value="postcss">PostCSS</option>
+        </select>
+      </div>
+
+      <div class="section-title">CSS-in-JS</div>
+      <div>
+        <select id="cssInJs">
+          <option value="styled-components">Styled Components</option>
+          <option value="emotion">Emotion</option>
+        </select>
+      </div>
+
+      <div class="section-title">Web Components</div>
+      <div>
+        <select id="webComponents">
+          <option value="shadow-dom">Shadow DOM</option>
+          <option value="lit">Lit</option>
+        </select>
+      </div>
+
+      <h3>Backend Stack</h3>
+      <div class="section-title">Microservices</div>
+      <div>
+        <select id="microservices">
+          <option value="docker">Microservices in Docker</option>
+          <option value="kubernetes">Orchestrated with Kubernetes</option>
+        </select>
+      </div>
+
+      <div class="section-title">Framework</div>
+      <div>
+        <select id="backendFramework">
+          <option value="nestjs">NestJS</option>
+          <option value="nextjs">Next.js</option>
+        </select>
+      </div>
+
+      <div class="section-title">GraphQL</div>
+      <div>
+        <select id="graphql">
+          <option value="apollo">Apollo</option>
+          <option value="relay">Relay</option>
+        </select>
+      </div>
+
+      <div class="section-title">Serverless Functions</div>
+      <div>
+        <select id="serverless">
+          <option value="aws-lambda">AWS Lambda</option>
+          <option value="vercel">Vercel</option>
+          <option value="netlify">Netlify Functions</option>
+        </select>
+      </div>
+
+      <button id="saveStackBtn">Save Stack</button>
     </div>
 
-    <div id="image-container" class="full-height" style="display:none;">
-        <h1>Koala Gallery</h1>
-        <h2 class="subheading">¡This is your Koala!</h2>
-        <button id="generate-button" onclick="generateImage()">Generate</button>
-        <img id="koala-image" src="" alt="Koala Image" style="display:none;">
+    <!-- Content (Log) -->
+    <div class="content" id="selectionLog">
+      <h2>Selection Log</h2>
+      <div id="logContainer" class="log-container"></div>
     </div>
+  </div>
 
-    <script>
-        let generatedImages = {}; // Object to track generated images for each wallet
+  <footer>
+    <p>© 2025 Tech Stack Selection. All rights reserved.</p>
+  </footer>
 
-        // Simple and basic validation for Solana wallet address
-        function verifyWallet() {
-            const wallet = document.getElementById("wallet").value;
-            const walletContainer = document.getElementById("wallet-container");
-            const imageContainer = document.getElementById("image-container");
+  <script>
+    // DOM Elements
+    const connectWalletBtn = document.getElementById("connectWalletBtn");
+    const connectWalletContainer = document.getElementById("connectWalletContainer");
+    const mainContent = document.getElementById("mainContent");
+    const saveStackBtn = document.getElementById("saveStackBtn");
+    const logContainer = document.getElementById("logContainer");
 
-            if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
-                walletContainer.style.display = "none";
-                imageContainer.style.display = "flex";
-                imageContainer.style.flexDirection = "column";
-                imageContainer.style.alignItems = "center";
-                if (generatedImages[wallet]) {
-                    // If an image has already been generated for this wallet, show it
-                    showGeneratedImage(wallet);
-                }
-            } else {
-                alert("Please enter a valid Solana wallet address.");
-            }
-        }
+    // Stack Selection
+    const frontendFramework = document.getElementById("frontendFramework");
+    const cssPreprocessor = document.getElementById("cssPreprocessor");
+    const cssInJs = document.getElementById("cssInJs");
+    const webComponents = document.getElementById("webComponents");
+    const microservices = document.getElementById("microservices");
+    const backendFramework = document.getElementById("backendFramework");
+    const graphql = document.getElementById("graphql");
+    const serverless = document.getElementById("serverless");
 
-        // Function to generate a random koala image
-        function generateImage() {
-            const wallet = document.getElementById("wallet").value;
-            if (generatedImages[wallet]) {
-                alert("You have already generated an image.");
-                return;
-            }
+    // Technical terms array
+    const technicalTerms = [
+      "Scalability",
+      "Latency",
+      "Throughput",
+      "Load Balancing",
+      "Containerization",
+      "Microservices",
+      "Serverless",
+      "GraphQL",
+      "REST API",
+      "WebAssembly",
+      "Edge Functions",
+      "Advanced Cache Invalidation",
+      "CI/CD",
+      "DevOps",
+      "Observability",
+      "Telemetry",
+      "Cache Invalidation",
+      "Session Management",
+      "Data Sharding",
+      "Event Sourcing"
+    ];
 
-            const koalaImages = [
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/5830d945982af65d123b7aaeac951a781436ae94/image%20(1).jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/image%20(2).jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/image%20(3).jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/image%20(4).jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%201.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%202.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%203.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%204.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%205.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%206.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%207.jpg',
-                'https://raw.githubusercontent.com/ibollaneza/adoptakoala/6da9f9e3769d3b4a2bb94905db0618a1750ec711/koala%208.jpg'
-            ];
-            const randomIndex = Math.floor(Math.random() * koalaImages.length);
-            const koalaImage = document.getElementById("koala-image");
-            koalaImage.src = koalaImages[randomIndex];
-            koalaImage.style.display = "block";
+    // Event Listeners
+    saveStackBtn.addEventListener("click", () => {
+      const selectedFrontendFramework = frontendFramework.value;
+      const selectedCssPreprocessor = cssPreprocessor.value;
+      const selectedCssInJs = cssInJs.value;
+      const selectedWebComponents = webComponents.value;
+      const selectedMicroservices = microservices.value;
+      const selectedBackendFramework = backendFramework.value;
+      const selectedGraphql = graphql.value;
+      const selectedServerless = serverless.value;
 
-            // Save the generated image for this wallet
-            generatedImages[wallet] = koalaImages[randomIndex];
-        }
+      const logEntry = `
+        Frontend Stack:
+        - Framework: ${selectedFrontendFramework}
+        - CSS Preprocessor: ${selectedCssPreprocessor}
+        - CSS-in-JS: ${selectedCssInJs}
+        - Web Components: ${selectedWebComponents}
+        
+        Backend Stack:
+        - Microservices: ${selectedMicroservices}
+        - Framework: ${selectedBackendFramework}
+        - GraphQL: ${selectedGraphql}
+        - Serverless Functions: ${selectedServerless}
+      `;
 
-        // Function to show the generated image if it already exists for the wallet
-        function showGeneratedImage(wallet) {
-            const koalaImage = document.getElementById("koala-image");
-            koalaImage.src = generatedImages[wallet];
-            koalaImage.style.display = "block";
-        }
-    </script>
+      appendLog(logEntry);
+      appendTechnicalTerms();
+    });
+
+    function appendTechnicalTerms() {
+      const terms = generateTechnicalTerms();
+      const div = document.createElement("div");
+      div.className = "log-entry";
+      div.textContent = terms;
+      logContainer.appendChild(div);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    function generateTechnicalTerms() {
+      let terms = '';
+      for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * technicalTerms.length);
+        const randomValue = Math.floor(Math.random() * 100);
+        terms += `${technicalTerms[randomIndex]}: ${randomValue}\n`;
+      }
+      return terms;
+    }
+
+    function appendLog(text) {
+      const div = document.createElement("div");
+      div.className = "log-entry";
+      div.textContent = text;
+      logContainer.appendChild(div);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Phantom Wallet connection
+    async function connectWallet() {
+      try {
+        const resp = await window.solana.connect();
+        console.log("Connected to wallet " + resp.publicKey.toString());
+        connectWalletContainer.style.display = "none";
+        mainContent.style.display = "flex";
+      } catch (err) {
+        console.error("Wallet connection failed", err);
+      }
+    }
+
+    // Check for Phantom Wallet
+    window.addEventListener("load", () => {
+      if (window.solana && window.solana.isPhantom) {
+        connectWalletBtn.onclick = connectWallet;
+      } else {
+        console.error("Phantom Wallet not found");
+      }
+    });
+  </script>
 </body>
 </html>
